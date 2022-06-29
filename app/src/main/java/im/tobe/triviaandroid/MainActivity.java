@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -37,8 +39,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.nextBtn.setOnClickListener(this::onNextBtnClicked);
-        binding.trueBtn.setOnClickListener(view -> checkAnswer(true));
-        binding.falseBtn.setOnClickListener(view -> checkAnswer(false));
+        binding.trueBtn.setOnClickListener(view -> {
+            checkAnswer(true);
+            updateQuestion();
+        });
+        binding.falseBtn.setOnClickListener(view -> {
+            checkAnswer(false);
+            updateQuestion();
+        });
     }
 
     private void checkAnswer(boolean userAnswer) {
@@ -48,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             snackMsgId = R.string.correct_answer;
         } else {
             snackMsgId = R.string.incorrect_answer;
+            shakeAnimation();
         }
 
         Snackbar.make(binding.cardView, snackMsgId, Snackbar.LENGTH_SHORT).show();
@@ -66,5 +75,11 @@ public class MainActivity extends AppCompatActivity {
         String question = questions.get(currentQuestionIndex).getAnswer();
         binding.questionText.setText(question);
         updateCounter((ArrayList<Question>) questions);
+    }
+
+    // show animation
+    private void shakeAnimation() {
+        Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake_animation);
+        binding.cardView.setAnimation(shake);
     }
 }
