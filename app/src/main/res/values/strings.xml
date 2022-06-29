@@ -6,4 +6,7 @@
     <string name="false_btn_text">False</string>
     <string name="next_btn_text">Next</string>
     <string name="question_text_placeholder">Here is the question...</string>
+    <string name="question_counter">"Question: %d/%d"</string>
+    <string name="correct_answer">Correct!</string>
+    <string name="incorrect_answer">Incorrect!</string>
 </resources>
